@@ -12,22 +12,22 @@
 
 class Pilka {
 public:
-    Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in);
-    void przesun();
-    void odbijX();
-    void odbijY();
-    void kolizjaSciana(float w, float h);
-    bool kolizjaPaletka(const Paletka &p);
+    inline Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in);
+    inline void przesun();
+    inline void odbijX();
+    inline void odbijY();
+    inline void kolizjaSciana(float w, float h);
+    inline bool kolizjaPaletka(const Paletka &p);
 
     //-- metody pobierarajace dane pilki
 
-    float getX() { return x; };
-    float getY() { return y; };
-    float getVx() { return vx; };
-    float getVy() { return vy; };
-    float getRadius() { return radius; };
+    inline float getX() { return x; };
+    inline float getY() { return y; };
+    inline float getVx() { return vx; };
+    inline float getVy() { return vy; };
+    inline float getRadius() { return radius; };
 
-    void draw(sf::RenderTarget &window);
+    inline void draw(sf::RenderTarget &window);
 
 private:
     float x;

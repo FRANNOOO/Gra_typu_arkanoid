@@ -10,19 +10,19 @@
 
 class Paletka {
 public:
-    Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in, float vx_in);
-    void przesunLewo();
-    void przesunPrawo();
-    void ograniczRuch (float width);
+    inline Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in, float vx_in);
+    inline void przesunLewo();
+    inline void przesunPrawo();
+    inline void ograniczRuch (float width);
 
     //-- metody pobierarajace dane pilki
 
-    float getX() const { return x; }
-    float getY() const { return y; }
-    float getSzerokosc() const { return szerokosc; }
-    float getWysokosc() const { return wysokosc; }
+    inline float getX() const { return x; }
+    inline float getY() const { return y; }
+    inline float getSzerokosc() const { return szerokosc; }
+    inline float getWysokosc() const { return wysokosc; }
 
-    void draw(sf::RenderTarget &window);
+    inline void draw(sf::RenderTarget &window);
 private:
     float x;
     float y;

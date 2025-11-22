@@ -14,7 +14,10 @@ find_package(SFML 3 REQUIRED COMPONENTS System Window Graphics Audio)
 add_executable(${PROJECT_NAME} main.cpp
         Paletka.h
         Pilka.h
-        Stone.h)
+        Stone.h
+        game.cpp
+        game.h
+)
 
 # Linkujemy wszystkie potrzebne komponenty SFML
 target_link_libraries(${PROJECT_NAME} PRIVATE

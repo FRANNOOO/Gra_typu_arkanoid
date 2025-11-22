@@ -10,17 +10,22 @@
 class Stone : public sf::RectangleShape
 {
    public:
-   Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L);
-   void trafienie();
-   void aktualizujKolor();
-   bool isDestroyed() const;
-   void draw(sf::RenderTarget &target) const;
+   inline Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L);
+   inline void trafienie();
+   inline void aktualizujKolor();
+   inline bool isDestroyed() const;
+   inline void draw(sf::RenderTarget &target) const;
 
 
    private:
    int m_punktyZycia;
    bool m_jestZniszczony;
-   static const std::array<sf::Color, 4> m_colorLUT;
+   inline static std::array<sf::Color, 4> m_colorLUT = {
+      sf::Color::Transparent, // L = 0
+      sf::Color::Red,         // L = 1
+      sf::Color::Yellow,      // L = 2
+      sf::Color::Blue         // L = 3
+   };
 };
 
 Stone::Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L)
@@ -34,12 +39,6 @@ Stone::Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L)
    aktualizujKolor();              // ustaw kolor startowy
 }
 
-const std::array<sf::Color, 4> Stone::m_colorLUT = {
-   sf::Color::Transparent, // L = 0
-   sf::Color::Red,         // L = 1
-   sf::Color::Yellow,      // L = 2
-   sf::Color::Blue         // L = 3
-};
 
 // Trafienie w blok
 void Stone::trafienie()
