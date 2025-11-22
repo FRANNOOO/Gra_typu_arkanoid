@@ -5,6 +5,7 @@
 #include <optional>
 #include <iomanip>
 #include <sstream>
+#include <cmath>
 #include <C:\Users\bonfr\CLionProjects\untitled\Game.h>
 #include <C:\Users\bonfr\CLionProjects\untitled\menu.h>
 
@@ -35,6 +36,11 @@ int main()
     sf::Clock gameClock;
     std::vector<WynikGry> historiaWynikow;
     sf::Clock clock; // zegar do dt
+
+    //Zegar do dynamicznego tekstu
+    sf::Text dynamicHint(font);
+    float hintTimer = 0.f;
+
     // petla wieczna - dopoki okno jest otwarte
     while (window.isOpen())
     {
@@ -82,6 +88,13 @@ int main()
                         menu_selected_flag = 1;
                     }
 
+                    // start ruchu ozdoby po T
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::T &&
+                        currentState == GameState::Menu)
+                    {
+                        menu.ustawRuchOzdoby(true);   // albo przelaczRuchOzdoby();
+                    }
+
                 }
 
 
@@ -112,8 +125,11 @@ int main()
 
         // window.draw(...);
         if (currentState == GameState::Menu)
-
+        {
+            menu.update(dt.asSeconds(), window.getSize());
             menu.draw(window);
+        }
+
 
         else if (currentState == GameState::Playing)
 
@@ -154,15 +170,26 @@ int main()
                 }
             }
 
-            sf::Text powrot(font, "ESC- powrot do menu", 24);
-            powrot.setFillColor(sf::Color(200, 200, 200));
-            powrot.setPosition(sf::Vector2f(width / 3.f, height - 120.f));
-            window.draw(powrot);
+             dynamicHint.setFont(font);
+             dynamicHint.setCharacterSize(28);
+             dynamicHint.setFillColor(sf::Color(255, 255, 255, 180));
+             dynamicHint.setString("ESC - wyjscie");
+             dynamicHint.setPosition(sf::Vector2f(width / 3.f, height - 120.f));
 
-             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape))
-             {
+
+             hintTimer += dt.asSeconds();
+
+             float puls = 0.5f + 0.5f * std::sin(hintTimer * 2.5f);
+             sf::Color baseColor = dynamicHint.getFillColor();
+             baseColor.a = static_cast<decltype(baseColor.a)>(120 + puls * 120);
+             dynamicHint.setFillColor(baseColor);
+
+             float scale = 1.f + 0.05f * std::sin(hintTimer * 3.5f);
+             dynamicHint.setScale({scale, scale});
+             window.draw(dynamicHint);
+             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape)) {
                  currentState = GameState::Menu;
-                 menu_selected_flag = 1;
+                 menu_selected_flag = 0;
              }
         }
 

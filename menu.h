@@ -20,6 +20,12 @@ private:
     std::vector <sf::Text>menu;//tablica elementow Text
     int selectedItem = 0;
     int MAX_LICZBA_POZIOMOW = 3;
+    sf::CircleShape ozdobaMenu;
+    sf::Vector2f ozdobaPredkosc;
+    bool ozdobaRuchAktywny = false;
+
+    sf::Texture backgroundTexture;
+    sf::Sprite* backgroundSprite;
 
 
 public:
@@ -29,6 +35,9 @@ public:
     void myDelay(int opoznienie);
     int getSelectedItem() { return selectedItem; }//zwroc poziom menu
     void draw(sf::RenderWindow &window);//rysuj menu w oknie
+    void update(float dt, sf::Vector2u windowSize);
+    void ustawRuchOzdoby(bool aktywny);
+
 };
 
 
