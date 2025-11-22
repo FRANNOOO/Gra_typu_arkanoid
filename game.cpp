@@ -13,18 +13,13 @@
 #include <optional>
 
 Game::Game ()
-    : window(
-        sf::VideoMode({width, height}),  // SFML 3: Vector2u
-        "Arkanoid test",
-        sf::State::Windowed              // wymagany trzeci argument
-    ),
-    pal(520.f, 440.f, 100.f, 20.f, 8.f), // x,y,szer,wys, predkosc
-    pilka(320.f, 300.f, 4.f, 3.f, 8.f) // x,y,vx,vy,radius
+    :
+    pal(520.f, 740.f, 100.f, 20.f), // x,y,szer,wys, predkosc
+    pilka(320.f, 300.f, 200.f, 150.f, 8.f) // x,y,vx,vy,radius
 
     {
-    window.setFramerateLimit(60);
-    const int   ILOSC_KOLUMN      = 6;
-    const int   ILOSC_WIERSZY     = 7;
+    const int   ILOSC_KOLUMN      = 8;
+    const int   ILOSC_WIERSZY     = 10;
     const float ODSTEP            = 2.f;
     const float ROZMIAR_BLOKU_Y   = 25.f;
     const float ROZMIAR_BLOKU_X   =
@@ -52,38 +47,24 @@ Game::Game ()
 
 }
 
-void Game::run() {
-    while (window.isOpen()) {
-        processEvents();
-        sf::Time dt = deltaClock.restart();
-        update(dt);
-        render();
-    }
-}
 
-void Game::processEvents() {
-    //obsługa zdarzeń
-    while (const std::optional<sf::Event> event = window.pollEvent()) {
-        if (event->is<sf::Event::Closed>()) {
-            window.close();
-        }
-    }
-}
+int Game::update(sf::Time dt) {
 
-void Game::update(sf::Time deltaTime) {
+    float dtSec = dt.asSeconds();
+
     //sterowanie paletką
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A) ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
-        pal.przesunLewo();
+        pal.przesun(-paddleSpeed * dt.asSeconds());
         }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D) ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right)) {
-        pal.przesunPrawo();
+        pal.przesun(paddleSpeed * dt.asSeconds());
         }
     pal.ograniczRuch(width);
 
     //logika piłki
-    pilka.przesun();
+    pilka.przesun(dt.asSeconds());
     pilka.kolizjaSciana(width, height);
     if (pilka.kolizjaPaletka(pal)) {
         std::cout << "HIT PADDLE\n";
@@ -121,25 +102,22 @@ void Game::update(sf::Time deltaTime) {
 
     //sprawdzenie przegranej
     if (pilka.getY() - pilka.getRadius() > height) {
-        std::cout << "KONIEC GRY\n";
-        window.close();
+        return 1;
     }
 
     if (wszystkieBlokiZniszczone()) {
-        std::cout << "WYGRANA! Wszystkie bloki zniszczone.\n";
-        window.close();
+        return 2;
     }
+    return 0;
 }
 
-void Game::render() {
+void Game::render(sf::RenderTarget& target) {
     //rysowanie
-    window.clear(sf::Color(20, 20, 30));
-    pal.draw(window);
-    pilka.draw(window);
+    pal.draw(target);
+    pilka.draw(target);
     for (const auto& blok : bloki) {
-        blok.draw(window);
+        blok.draw(target);
     }
-    window.display();
 }
 
  bool Game::wszystkieBlokiZniszczone()

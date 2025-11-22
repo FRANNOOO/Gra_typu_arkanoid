@@ -14,13 +14,14 @@
 #include <C:\Users\bonfr\CLionProjects\untitled\Stone.h>
 #include <optional>
 
+constexpr unsigned int width  = 1400;
+constexpr unsigned int height = 900;
+
 class Game {
     public:
     Game();
-    void run();
-    void processEvents();
-    void update(sf::Time deltaTime);
-    void render();
+    int update(sf::Time deltaTime);
+    void render(sf::RenderTarget& target);
     bool wszystkieBlokiZniszczone();
 
 private:
@@ -29,9 +30,7 @@ private:
     Pilka pilka;
     std::vector<Stone> bloki;
 
-    float width  = 900;
-    float height = 600;
-    sf::RenderWindow window;
+    float paddleSpeed = 400.f; // piksele na sekundę
 
 };
 

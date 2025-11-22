@@ -13,7 +13,7 @@
 class Pilka {
 public:
     inline Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in);
-    inline void przesun();
+    inline void przesun(float dt);
     inline void odbijX();
     inline void odbijY();
     inline void kolizjaSciana(float w, float h);
@@ -53,9 +53,9 @@ Pilka::Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in) 
 
 
 
-void Pilka::przesun() {
-    x = x + vx;
-    y = y + vy;
+void Pilka::przesun(float dt) {
+    x = x + vx * dt;
+    y = y + vy * dt;
     shape.setPosition(sf::Vector2f(x, y));
 
 }

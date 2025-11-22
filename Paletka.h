@@ -10,9 +10,8 @@
 
 class Paletka {
 public:
-    inline Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in, float vx_in);
-    inline void przesunLewo();
-    inline void przesunPrawo();
+    inline Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in);
+    inline void przesun( float x_in);
     inline void ograniczRuch (float width);
 
     //-- metody pobierarajace dane pilki
@@ -28,30 +27,25 @@ private:
     float y;
     float szerokosc;
     float wysokosc;
-    float vx;
     sf::RectangleShape shape;
 };
 
-Paletka::Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in, float vx_in) {
+Paletka::Paletka(float x_in, float y_in, float szerokosc_in, float wysokosc_in) {
     x = x_in;
     y = y_in;
     szerokosc = szerokosc_in;
     wysokosc = wysokosc_in;
-    vx = vx_in;
     shape.setSize(sf::Vector2f(szerokosc, wysokosc));
     shape.setOrigin(sf::Vector2f(szerokosc/2, wysokosc/2));
     shape.setPosition(sf::Vector2f(x, y));
     shape.setFillColor(sf::Color::Blue);
 };
 
-void Paletka::przesunLewo() {
-    x = x - vx;
+void Paletka::przesun(float x_in) {
+    x = x + x_in;
     shape.setPosition(sf::Vector2f(x, y));
 }
-void Paletka::przesunPrawo() {
-    x = x + vx;
-    shape.setPosition(sf::Vector2f(x, y));
-}
+
 void Paletka::ograniczRuch(float width) {
     if (x - szerokosc/2 <= 0) {
         x = 0 + szerokosc/2;
