@@ -15,6 +15,7 @@ class Stone : public sf::RectangleShape
    inline void aktualizujKolor();
    inline bool isDestroyed() const;
    inline void draw(sf::RenderTarget &target) const;
+   inline int getHP() const { return m_punktyZycia; };
 
 
    private:

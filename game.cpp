@@ -21,9 +21,8 @@ Game::Game ()
     const int   ILOSC_KOLUMN      = 8;
     const int   ILOSC_WIERSZY     = 10;
     const float ODSTEP            = 2.f;
-    const float ROZMIAR_BLOKU_Y   = 25.f;
-    const float ROZMIAR_BLOKU_X   =
-        (width - (ILOSC_KOLUMN - 1) * ODSTEP) / ILOSC_KOLUMN;
+    ROZMIAR_BLOKU_Y   = 25.f;
+    ROZMIAR_BLOKU_X   = (width - (ILOSC_KOLUMN - 1) * ODSTEP) / ILOSC_KOLUMN;
 
     bloki.reserve(ILOSC_KOLUMN * ILOSC_WIERSZY);
 
@@ -66,9 +65,7 @@ int Game::update(sf::Time dt) {
     //logika piłki
     pilka.przesun(dt.asSeconds());
     pilka.kolizjaSciana(width, height);
-    if (pilka.kolizjaPaletka(pal)) {
-        std::cout << "HIT PADDLE\n";
-    }
+    pilka.kolizjaPaletka(pal);
 
     {
         float cx = pilka.getX(); // środek piłki - X

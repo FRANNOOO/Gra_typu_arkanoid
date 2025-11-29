@@ -23,12 +23,27 @@ class Game {
     int update(sf::Time deltaTime);
     void render(sf::RenderTarget& target);
     bool wszystkieBlokiZniszczone();
+    Paletka& getPaletka()             { return pal; }
+    const Paletka& getPaletka() const { return pal; }
+
+    Pilka& getPilka()             { return pilka; }
+    const Pilka& getPilka() const { return pilka; }
+
+    std::vector<Stone>& getBloki()             { return bloki; }
+    const std::vector<Stone>& getBloki() const { return bloki; }
+
+
+    float getX() const { return ROZMIAR_BLOKU_X; };
+    float getY() const { return ROZMIAR_BLOKU_Y; };
 
 private:
     sf::Clock deltaClock;
     Paletka pal;
     Pilka pilka;
     std::vector<Stone> bloki;
+
+    float ROZMIAR_BLOKU_Y;
+    float ROZMIAR_BLOKU_X;
 
     float paddleSpeed = 400.f; // piksele na sekundę
 

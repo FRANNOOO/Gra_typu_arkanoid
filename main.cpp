@@ -8,6 +8,7 @@
 #include <cmath>
 #include <C:\Users\bonfr\CLionProjects\untitled\Game.h>
 #include <C:\Users\bonfr\CLionProjects\untitled\menu.h>
+#include <C:\Users\bonfr\CLionProjects\untitled\GameSave.h>
 
 enum class GameState { Menu, Playing, Scores, Exiting };
 
@@ -32,6 +33,7 @@ int main()
     }
     Menu menu(window.getSize().x, window.getSize().y);
     Game game;
+    GameSave save;
     GameState currentState = GameState::Menu;
     sf::Clock gameClock;
     std::vector<WynikGry> historiaWynikow;
@@ -78,19 +80,27 @@ int main()
 
                     if (keyPressed->scancode == sf::Keyboard::Scancode::Enter && menu.getSelectedItem() == 1)
                     {
+                        if (save.loadFromFile("savegame.txt")) {
+                            save.apply(game.getPaletka(), game.getPilka(), game, game.getBloki());
+                            currentState = GameState::Playing;
+                            menu_selected_flag = 1;
+                        }
+                    }
+
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::Enter && menu.getSelectedItem() == 2)
+                    {
                         currentState = GameState::Scores;
                         menu_selected_flag = 1;
                     }
 
-                    if (keyPressed->scancode == sf::Keyboard::Scancode::Enter && menu.getSelectedItem() == 2)
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::Enter && menu.getSelectedItem() == 3)
                     {
                         currentState = GameState::Exiting;
                         menu_selected_flag = 1;
                     }
 
                     // start ruchu ozdoby po T
-                    if (keyPressed->scancode == sf::Keyboard::Scancode::T &&
-                        currentState == GameState::Menu)
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::T && currentState == GameState::Menu)
                     {
                         menu.ustawRuchOzdoby(true);   // albo przelaczRuchOzdoby();
                     }
@@ -101,9 +111,15 @@ int main()
             }
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape)) {
+            currentState = GameState::Menu;
+            menu_selected_flag = 0;
+        }
+
+        window.clear();
+
         if (currentState == GameState::Playing)
         {
-            // jeśli nie korzystasz z dt w Game::update, możesz dać sf::Time::Zero
             int wynik = game.update(dt);
             if (wynik != 0) {
                 currentState = GameState::Menu;
@@ -118,10 +134,16 @@ int main()
                     historiaWynikow.erase(historiaWynikow.begin());
                 }
             }
-        }
+            //Zapis gry
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::P))
+            {
+                save.capture(game.getPaletka(), game.getPilka(), game.getBloki());
+                save.saveToFile("savegame.txt");
+                std::cout << "Gra zapisana!";
+            }
 
-        // wyczysc obszar rysowania
-        window.clear();
+            game.render(window);
+        }
 
         // window.draw(...);
         if (currentState == GameState::Menu)
@@ -129,11 +151,6 @@ int main()
             menu.update(dt.asSeconds(), window.getSize());
             menu.draw(window);
         }
-
-
-        else if (currentState == GameState::Playing)
-
-            game.render(window);
 
         else if (currentState == GameState::Exiting)
 
@@ -187,10 +204,6 @@ int main()
              float scale = 1.f + 0.05f * std::sin(hintTimer * 3.5f);
              dynamicHint.setScale({scale, scale});
              window.draw(dynamicHint);
-             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Escape)) {
-                 currentState = GameState::Menu;
-                 menu_selected_flag = 0;
-             }
         }
 
 

@@ -21,6 +21,8 @@ public:
     inline float getSzerokosc() const { return szerokosc; }
     inline float getWysokosc() const { return wysokosc; }
 
+    inline void setPosition(float x_save);
+
     inline void draw(sf::RenderTarget &window);
 private:
     float x;
@@ -57,6 +59,11 @@ void Paletka::ograniczRuch(float width) {
 };
 void Paletka::draw(sf::RenderTarget &window) {
     window.draw(shape);
+}
+
+void Paletka::setPosition(float x_save) {
+    x = x_save;
+    shape.setPosition(sf::Vector2f(x, y));
 }
 
 #endif //SFML_PALETKA_H

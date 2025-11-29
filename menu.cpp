@@ -41,19 +41,24 @@ backgroundSprite()
     sf::Text t(font);//w SFML 3 obiekt Text musi miec konstruktor z par font
     //rysowanie elementow menu
     t.setFont(font);
-    t.setFillColor(sf::Color::Red);
+    t.setFillColor(sf::Color::White);
     t.setString("Nowa gra");
     t.setPosition(sf::Vector2f(width / 3, height / (MAX_LICZBA_POZIOMOW + 1) * 1));
     menu.push_back(t);
     t.setFont(font);
     t.setFillColor(sf::Color::White);
-    t.setString("Ostatnie wyniki");
+    t.setString("Wczytaj gre");
     t.setPosition(sf::Vector2f(width / 3, height / (MAX_LICZBA_POZIOMOW + 1) * 2));
     menu.push_back(t);
     t.setFont(font);
     t.setFillColor(sf::Color::White);
-    t.setString("Wyjscie");
+    t.setString("Ostatnie wyniki");
     t.setPosition(sf::Vector2f(width / 3, height / (MAX_LICZBA_POZIOMOW + 1) * 3));
+    menu.push_back(t);
+    t.setFont(font);
+    t.setFillColor(sf::Color::White);
+    t.setString("Wyjscie");
+    t.setPosition(sf::Vector2f(width / 3, height / (MAX_LICZBA_POZIOMOW + 1) * 4));
     menu.push_back(t);
 }
 

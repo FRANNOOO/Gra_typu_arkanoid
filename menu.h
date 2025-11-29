@@ -19,7 +19,7 @@ private:
     sf::Font font;
     std::vector <sf::Text>menu;//tablica elementow Text
     int selectedItem = 0;
-    int MAX_LICZBA_POZIOMOW = 3;
+    int MAX_LICZBA_POZIOMOW = 4;
     sf::CircleShape ozdobaMenu;
     sf::Vector2f ozdobaPredkosc;
     bool ozdobaRuchAktywny = false;

@@ -21,11 +21,13 @@ public:
 
     //-- metody pobierarajace dane pilki
 
-    inline float getX() { return x; };
-    inline float getY() { return y; };
-    inline float getVx() { return vx; };
-    inline float getVy() { return vy; };
-    inline float getRadius() { return radius; };
+    inline float getX() const { return x; };
+    inline float getY() const { return y; };
+    inline float getVx() const { return vx; };
+    inline float getVy() const { return vy; };
+    inline float getRadius() const { return radius; };
+
+    inline void reset(sf::Vector2f position, sf::Vector2f velocity);
 
     inline void draw(sf::RenderTarget &window);
 
@@ -95,4 +97,12 @@ bool Pilka::kolizjaPaletka(const Paletka &p) {
 void Pilka::draw(sf::RenderTarget &window) {
     window.draw(shape);
 }
+
+void Pilka::reset(sf::Vector2f position, sf::Vector2f velocity) {
+    x = position.x;
+    y = position.y;
+    vx = velocity.x;
+    vy = velocity.y;
+}
+
 #endif //SFML_PILKA_H
