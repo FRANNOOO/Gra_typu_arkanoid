@@ -8,6 +8,7 @@ Prosta gra 2D zbudowana na bibliotece **SFML**, w której poruszasz paletką, ab
 - **Enter** – wybór opcji w menu głównym.
 - **Escape** – powrót z ekranu wyników do menu.
 - Zamknięcie okna kończy działanie programu.
+- Po kliknieciu T w menu słońce zaczyna się ruszać
 
 ## Tryby i menu
 Po uruchomieniu aplikacji pojawia się menu z trzema pozycjami:
