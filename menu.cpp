@@ -2,7 +2,7 @@
 // Created by bonfr on 22.11.2025.
 //
 
-#include <C:\Users\bonfr\CLionProjects\untitled\menu.h>
+#include "menu.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>

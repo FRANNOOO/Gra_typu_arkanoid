@@ -21,6 +21,12 @@ add_executable(${PROJECT_NAME} main.cpp
         menu.h
         GameSave.cpp
         GameSave.h
+        GameState.cpp
+        GameState.h
+        Application.cpp
+        Application.h
+        Scoreboard.cpp
+        Scoreboard.h
 )
 
 # Linkujemy wszystkie potrzebne komponenty SFML

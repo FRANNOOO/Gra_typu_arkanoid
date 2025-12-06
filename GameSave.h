@@ -2,8 +2,8 @@
 // Created by bonfr on 24.11.2025.
 //
 
-#ifndef SFML_GAMESTATE_H
-#define SFML_GAMESTATE_H
+#ifndef SFML_GAMESAVE_H
+#define SFML_GAMESAVE_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

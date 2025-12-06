@@ -9,9 +9,9 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include <vector>
-#include <C:\Users\bonfr\CLionProjects\untitled\Paletka.h>
-#include <C:\Users\bonfr\CLionProjects\untitled\Pilka.h>
-#include <C:\Users\bonfr\CLionProjects\untitled\Stone.h>
+#include "Paletka.h"
+#include "Pilka.h"
+#include "Stone.h"
 #include <optional>
 
 constexpr unsigned int width  = 1400;

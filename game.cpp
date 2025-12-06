@@ -7,15 +7,15 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include <vector>
-#include <C:\Users\bonfr\CLionProjects\untitled\Paletka.h>
-#include <C:\Users\bonfr\CLionProjects\untitled\Pilka.h>
-#include <C:\Users\bonfr\CLionProjects\untitled\Stone.h>
+#include "Paletka.h"
+#include "Pilka.h"
+#include "Stone.h"
 #include <optional>
 
 Game::Game ()
     :
     pal(520.f, 740.f, 100.f, 20.f), // x,y,szer,wys, predkosc
-    pilka(320.f, 300.f, 200.f, 150.f, 8.f) // x,y,vx,vy,radius
+    pilka(420.f, 400.f, 200.f, 150.f, 8.f) // x,y,vx,vy,radius
 
     {
     const int   ILOSC_KOLUMN      = 8;
