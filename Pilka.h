@@ -12,24 +12,21 @@
 
 class Pilka {
 public:
-    inline Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in);
-    inline void przesun(float dt);
-    inline void odbijX();
-    inline void odbijY();
-    inline void kolizjaSciana(float w, float h);
-    inline bool kolizjaPaletka(const Paletka &p);
+    Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in);
+    void przesun(float dt);
+    void odbijX();
+    void odbijY();
+    void kolizjaSciana(float w, float h);
+    bool kolizjaPaletka(const Paletka &p);
+    void reset(sf::Vector2f position, sf::Vector2f velocity);
+    void draw(sf::RenderTarget &window);
 
     //-- metody pobierarajace dane pilki
-
-    inline float getX() const { return x; };
-    inline float getY() const { return y; };
-    inline float getVx() const { return vx; };
-    inline float getVy() const { return vy; };
-    inline float getRadius() const { return radius; };
-
-    inline void reset(sf::Vector2f position, sf::Vector2f velocity);
-
-    inline void draw(sf::RenderTarget &window);
+    float getX() const { return x; };
+    float getY() const { return y; };
+    float getVx() const { return vx; };
+    float getVy() const { return vy; };
+    float getRadius() const { return radius; };
 
 private:
     float x;
@@ -38,71 +35,6 @@ private:
     float vy;
     float radius;
     sf::CircleShape shape;
-
 };
-Pilka::Pilka(float x_in, float y_in, float vx_in, float vy_in, float radius_in) {
-    x = x_in;
-    y = y_in;
-    vx = vx_in;
-    vy = vy_in;
-    radius = radius_in;
-    shape.setRadius(radius);
-    shape.setOrigin(sf::Vector2f(radius, radius)); // żeby (x,y) było środkiem
-    shape.setPosition(sf::Vector2f(x, y));
-    shape.setFillColor(sf::Color::White);
-
-};
-
-
-
-void Pilka::przesun(float dt) {
-    x = x + vx * dt;
-    y = y + vy * dt;
-    shape.setPosition(sf::Vector2f(x, y));
-
-}
-void Pilka::odbijX() {
-    vx = -vx;
-};
-void Pilka::odbijY() {
-    vy = -vy;
-};
-void Pilka::kolizjaSciana(float width, float height) {
-    if (x - radius <= 0 || x + radius >= width) {
-        odbijX();
-    }
-    if (y - radius <= 0) {
-        odbijY();
-    }
-};
-
-bool Pilka::kolizjaPaletka(const Paletka &p) {
-    float left   = p.getX() - p.getSzerokosc() / 2.f;
-    float right  = p.getX() + p.getSzerokosc() / 2.f;
-    float top    = p.getY() - p.getWysokosc() / 2.f;
-    float bottom = p.getY() + p.getWysokosc() / 2.f;
-
-    bool overlapX = (x + radius >= left) && (x - radius <= right);
-    bool overlapY = (y + radius >= top) && (y - radius <= bottom);
-
-    if (overlapX && overlapY && vy > 0.f) {  // piłka leci w dół na paletkę
-        vy = -std::abs(vy);
-        y = top - radius; // ustaw nad paletką
-        shape.setPosition(sf::Vector2f(x, y));
-        return true;
-    }
-    return false;
-}
-
-void Pilka::draw(sf::RenderTarget &window) {
-    window.draw(shape);
-}
-
-void Pilka::reset(sf::Vector2f position, sf::Vector2f velocity) {
-    x = position.x;
-    y = position.y;
-    vx = velocity.x;
-    vy = velocity.y;
-}
 
 #endif //SFML_PILKA_H

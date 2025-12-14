@@ -56,7 +56,7 @@ void Scoreboard::render(sf::RenderTarget& target) {
     }
 
     if (dynamicHint) {
-        target.draw(*dynamicHint); // pulsująca podpowiedź
+        target.draw(*dynamicHint);
     }
 }
 
@@ -72,11 +72,4 @@ void Scoreboard::updateHint(sf::Time dt) {
 
     float scale = 1.f + 0.05f * std::sin(hintTimer * 3.5f); // delikatny zoom
     dynamicHint->setScale({scale, scale});
-}
-
-void Scoreboard::resetHint() {
-    hintTimer = 0.f; // reset animacji
-    if (dynamicHint) {
-        dynamicHint->setScale({1.f, 1.f}); // powrót do rozmiaru
-    }
 }

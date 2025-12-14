@@ -30,8 +30,7 @@ private:
 
 public:
     Menu(float width, float height);
-    void przesunG();//przesun do gory
-    void przesunD();//przesun w dol
+    void przesun();
     void myDelay(int opoznienie);
     int getSelectedItem() { return selectedItem; }//zwroc poziom menu
     void draw(sf::RenderWindow &window);//rysuj menu w oknie

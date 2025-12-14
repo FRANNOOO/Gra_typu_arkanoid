@@ -25,7 +25,6 @@ public:
     void addResult(bool wygrana, sf::Time czasGry);
     void render(sf::RenderTarget& target);
     void updateHint(sf::Time dt);
-    void resetHint();
 
 private:
     const sf::Font* font;

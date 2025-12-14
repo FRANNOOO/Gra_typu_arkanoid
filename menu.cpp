@@ -1,7 +1,3 @@
-//
-// Created by bonfr on 22.11.2025.
-//
-
 #include "menu.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -9,10 +5,8 @@
 #include <cmath>
 
 Menu::Menu(float width, float height)
-: font{},        // font się tworzy
-backgroundSprite()
-{	//laduj czcionke
-
+: font{}, backgroundSprite()
+{
     if (!backgroundTexture.loadFromFile("tlo.jpg")) {
         std::cerr << "Nie mozna wczytac tlo.jpg\n";
     }
@@ -23,7 +17,7 @@ backgroundSprite()
     backgroundSprite->setScale(sf::Vector2f(
     width  / static_cast<float>(texSize.x),
     height / static_cast<float>(texSize.y)
-));
+    ));
 
     if (!font.openFromFile("arial.ttf"))
     {
@@ -108,36 +102,31 @@ void Menu::draw(sf::RenderWindow &window)
     }
 }
 
-
-void Menu::przesunG()
+void Menu::przesun()
 {
     if (selectedItem >= 0 && selectedItem < MAX_LICZBA_POZIOMOW)
     {
         menu[selectedItem].setFillColor(sf::Color::White);
         menu[selectedItem].setStyle(sf::Text::Regular);
-        selectedItem--;
-        if (selectedItem < 0)
-            selectedItem = MAX_LICZBA_POZIOMOW - 1;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Down))
+        {
+            selectedItem++;
+            if (selectedItem >= MAX_LICZBA_POZIOMOW)
+                selectedItem = 0;
+
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+        {
+            selectedItem--;
+            if (selectedItem < 0)
+                selectedItem = MAX_LICZBA_POZIOMOW - 1;
+        }
         menu[selectedItem].setFillColor(sf::Color::Cyan);
         menu[selectedItem].setStyle(sf::Text::Bold);
     }
-
-
-}
-
-void Menu::przesunD()
-{
-    if (selectedItem >= 0 && selectedItem < MAX_LICZBA_POZIOMOW)
-    {
-        menu[selectedItem].setFillColor(sf::Color::White);
-        menu[selectedItem].setStyle(sf::Text::Regular);
-        selectedItem++;
-        if (selectedItem >= MAX_LICZBA_POZIOMOW)
-            selectedItem = 0;
-        menu[selectedItem].setFillColor(sf::Color::Cyan);
-        menu[selectedItem].setStyle(sf::Text::Bold);
-    }
-
+    myDelay(200);
 }
 
 //funklcja opozniajaca

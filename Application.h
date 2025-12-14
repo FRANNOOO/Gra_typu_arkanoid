@@ -21,8 +21,6 @@ private:
     void update(sf::Time dt);
     void updatePlayingState(sf::Time dt);
     void render();
-    void renderScores();
-    void resetToMenu();
     void startNewGame();
     void loadSavedGame();
 
@@ -35,7 +33,6 @@ private:
     sf::Clock gameClock;
     sf::Clock frameClock;
     Scoreboard scoreboard;
-    bool menuLocked{};
 };
 
 

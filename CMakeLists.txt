@@ -12,9 +12,14 @@ find_package(SFML 3 REQUIRED COMPONENTS System Window Graphics Audio)
 
 # Tworzymy plik wykonywalny z main.cpp
 add_executable(${PROJECT_NAME} main.cpp
+        Paletka.cpp
         Paletka.h
+        Pilka.cpp
         Pilka.h
+        Stone.cpp
         Stone.h
+        LevelBuilder.cpp
+        LevelBuilder.h
         game.cpp
         game.h
         menu.cpp
